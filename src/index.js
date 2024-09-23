@@ -2,6 +2,7 @@
 import React from "react";
 // import ReactDOM from "react-dom";// Before V18
 import ReactDOM from "react-dom/client";
+import "./index.css";
 // pizzData
 // const pizzaData = [
 //   {
@@ -48,53 +49,76 @@ import ReactDOM from "react-dom/client";
 //   },
 // ];
 
+// App
 function App() {
   return (
-    <React.StrictMode>
+    <React.StrictMode className="container">
       <Header />
       <Menu />
       <Footer />
     </React.StrictMode>
   );
 }
-
-// pizza Component
-function Pizza() {
-  return (
-    <div>
-      <img src="pizzas/margherita.jpg" alt="Margherita" />
-      <h2>Pizza Margherita</h2>
-      <p>Tomato and mozarella</p>
-    </div>
-  );
-}
-// Header
-function Header() {
-  return <h1>Fast React Pizza Co.</h1>;
-}
-
 // Menu
 function Menu() {
   return (
-    <div>
+    <main className="menu">
       <h2>Our menu</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
+      <Pizza
+        name="Pizza Margherita"
+        ingredients="Tomato and mozarella"
+        photName="pizzas/margherita.jpg"
+        price={10}
+      />
+      <Pizza
+        name="Pizza Margherita"
+        ingredients="Tomato and mozarella"
+        photName="pizzas/margherita.jpg"
+        price={10}
+      />
+    </main>
+  );
+}
+// pizza Component
+function Pizza(props) {
+  console.log(props);
+  return (
+    <div className="pizza">
+      <img src={props.photName} alt={props.name} />
+      <div className="">
+        <h3>{props.name}</h3>
+        <p>{props.ingredients}</p>
+        <span>{props.price + 1}</span>
+      </div>
     </div>
+  );
+}
+
+// Header
+function Header() {
+  return (
+    <header className="header">
+      <h1>Fast React Pizza Co.</h1>
+    </header>
   );
 }
 
 // Footer
 function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 12;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+  console.log(isOpen);
   return (
-    <footer>{new Date().toLocaleTimeString()} We are currently open!</footer>
+    <footer className="footer">
+      {new Date().toLocaleTimeString()} We are currently open!
+    </footer>
   );
 }
 
 // React V18
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
-
 // React before V18
 // React.render(<App/>)
